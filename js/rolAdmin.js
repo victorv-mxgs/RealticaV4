@@ -1,19 +1,18 @@
-mostrarsusc();
-function mostrarsusc(busqueda) {
-    fetch("./adminPhp/suscripcion/mostrar.php", {
+mostrarRol();
+function mostrarRol(busqueda) {
+    fetch("./adminPhp/rolAdminPhp/mostrarRol.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        resultadosusc.innerHTML = response;
+        resultado.innerHTML = response;
     })
 }
 
-registrarsusc.addEventListener("click", () => {
-    fetch("./adminPhp/suscripcion/registrar.php", {
+registrarrol.addEventListener("click", () => {
+    fetch("./adminPhp/rolAdminPhp/registrarRol.php", {
         method: "POST",
-        body: new FormData(frm6)
+        body: new FormData(frmr)
     }).then(response => response.text()).then(response => {
-        
         if (response == "ok") {
             Swal.fire({
                 icon: 'success',
@@ -21,8 +20,8 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            mostrarsusc();
-            frm6.reset();
+            mostrarRol();
+            frmr.reset();
         }
         if (response == "modificado"){
             Swal.fire({
@@ -30,12 +29,13 @@ registrarsusc.addEventListener("click", () => {
                 title: 'Actualizado',
                 showConfirmButton: false,
                 timer: 1500
-                
+               
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            mostrarsusc();
-            frm6.reset();
+            frmr.reset();
+            registrarrol.value = "Registrar";
+            rolId.value = "";
+            mostrarRol();
+            
         }
         if (response == "error"){
             Swal.fire({
@@ -44,16 +44,16 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            frm6.reset();
+            registrarrol.value = "Registrar";
+            rolId.value = "";
+            frmr.reset();
         }
     })
 });
 
 
 
-function Eliminarsusc(nSuscripTipoId) {
+function Eliminar(nRolId) {
     Swal.fire({
         title: 'Esta seguro de eliminar?',
         icon: 'warning',
@@ -64,12 +64,12 @@ function Eliminarsusc(nSuscripTipoId) {
         cancelButtonText: 'NO'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("./adminPhp/suscripcion/eliminar.php", {
+            fetch("./adminPhp/rolAdminPhp/eliminarRol.php", {
                 method: "POST",
-                body: nSuscripTipoId
+                body: nRolId
             }).then(response => response.text()).then(response => {
                 if (response == "eliminado") {
-                    mostrarsusc();
+                    mostrarRol();
                    Swal.fire({
                        icon: 'success',
                        title: 'Eliminado',
@@ -84,25 +84,23 @@ function Eliminarsusc(nSuscripTipoId) {
     })
 }
 
-function Editarsusc(nSuscripTipoId) {
-    fetch("./adminPhp/suscripcion/editar.php", {
+
+
+function Editar(nRolId) {
+    fetch("./adminPhp/rolAdminPhp/editarRol.php", {
         method: "POST",
-        body: nSuscripTipoId
+        body: nRolId
     }).then(response => response.json()).then(response => {
-        suscripTipoId.value = response.nSuscripTipoId;
-        nombre.value = response.cNombre;
-        descripcion.value = response.cDescripcion;
-        precio.value = response.nPrecio;
-        meses.value = response.nMeses;
-        publicaciones.value = response.nPublicaciones;
-        registrarsusc.value = "Actualizar"
+        rolId.value = response.nRolId;
+        rol.value = response.cRol;
+        registrarrol.value = "Actualizar"
     })
 }
-buscarsusc.addEventListener("keyup", () => {
-    const valor = buscarsusc.value;
+buscar.addEventListener("keyup", () => {
+    const valor = buscar.value;
     if (valor == "") {
-        mostrarsusc();
+        mostrarRol();
     }else{
-        mostrarsusc(valor);
+        mostrarRol(valor);
     }
 });

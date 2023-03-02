@@ -1,17 +1,17 @@
-mostrarsusc();
-function mostrarsusc(busqueda) {
-    fetch("./adminPhp/suscripcion/mostrar.php", {
+mostrarvial();
+function mostrarvial(busqueda) {
+    fetch("./adminPhp/vialidad/mostrar.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        resultadosusc.innerHTML = response;
+        resultadvial.innerHTML = response;
     })
 }
 
-registrarsusc.addEventListener("click", () => {
-    fetch("./adminPhp/suscripcion/registrar.php", {
+registrarvial.addEventListener("click", () => {
+    fetch("./adminPhp/vialidad/registrar.php", {
         method: "POST",
-        body: new FormData(frm6)
+        body: new FormData(frm5)
     }).then(response => response.text()).then(response => {
         
         if (response == "ok") {
@@ -21,8 +21,8 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            mostrarsusc();
-            frm6.reset();
+            mostrarvial();
+            frm5.reset();
         }
         if (response == "modificado"){
             Swal.fire({
@@ -32,10 +32,10 @@ registrarsusc.addEventListener("click", () => {
                 timer: 1500
                 
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            mostrarsusc();
-            frm6.reset();
+            registrarvial.value = "Registrar";
+            vialidadTipoId.value = "";
+            mostrarvial();
+            frm5.reset();
         }
         if (response == "error"){
             Swal.fire({
@@ -44,16 +44,16 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            frm6.reset();
+            registrarvial.value = "Registrar";
+            vialidadTipoId.value = "";
+            frm5.reset();
         }
     })
 });
 
 
 
-function Eliminarsusc(nSuscripTipoId) {
+function Eliminarvial(nVialidadTipoId) {
     Swal.fire({
         title: 'Esta seguro de eliminar?',
         icon: 'warning',
@@ -64,12 +64,12 @@ function Eliminarsusc(nSuscripTipoId) {
         cancelButtonText: 'NO'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("./adminPhp/suscripcion/eliminar.php", {
+            fetch("./adminPhp/vialidad/eliminar.php", {
                 method: "POST",
-                body: nSuscripTipoId
+                body: nVialidadTipoId
             }).then(response => response.text()).then(response => {
                 if (response == "eliminado") {
-                    mostrarsusc();
+                    mostrarvial();
                    Swal.fire({
                        icon: 'success',
                        title: 'Eliminado',
@@ -84,25 +84,21 @@ function Eliminarsusc(nSuscripTipoId) {
     })
 }
 
-function Editarsusc(nSuscripTipoId) {
-    fetch("./adminPhp/suscripcion/editar.php", {
+function Editarvial(nVialidadTipoId) {
+    fetch("./adminPhp/vialidad/editar.php", {
         method: "POST",
-        body: nSuscripTipoId
+        body: nVialidadTipoId
     }).then(response => response.json()).then(response => {
-        suscripTipoId.value = response.nSuscripTipoId;
-        nombre.value = response.cNombre;
-        descripcion.value = response.cDescripcion;
-        precio.value = response.nPrecio;
-        meses.value = response.nMeses;
-        publicaciones.value = response.nPublicaciones;
-        registrarsusc.value = "Actualizar"
+        vialidadTipoId.value = response.nVialidadTipoId;
+        vialidadTipo.value = response.cVialidadTipo;
+        registrarvial.value = "Actualizar"
     })
 }
-buscarsusc.addEventListener("keyup", () => {
-    const valor = buscarsusc.value;
+buscarvial.addEventListener("keyup", () => {
+    const valor = buscarvial.value;
     if (valor == "") {
-        mostrarsusc();
+        mostrarvial();
     }else{
-        mostrarsusc(valor);
+        mostrarvial(valor);
     }
 });

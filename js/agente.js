@@ -1,19 +1,18 @@
-mostrarsusc();
-function mostrarsusc(busqueda) {
-    fetch("./adminPhp/suscripcion/mostrar.php", {
+mostrarAgente();
+function mostrarAgente(busqueda) {
+    fetch("./adminPhp/agente/mostrar.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        resultadosusc.innerHTML = response;
+        resultadoage.innerHTML = response;
     })
 }
 
-registrarsusc.addEventListener("click", () => {
-    fetch("./adminPhp/suscripcion/registrar.php", {
+registrarage.addEventListener("click", () => {
+    fetch("./adminPhp/agente/registrar.php", {
         method: "POST",
-        body: new FormData(frm6)
+        body: new FormData(frm7)
     }).then(response => response.text()).then(response => {
-        
         if (response == "ok") {
             Swal.fire({
                 icon: 'success',
@@ -21,8 +20,8 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            mostrarsusc();
-            frm6.reset();
+            mostrarAgente();
+            frm7.reset();
         }
         if (response == "modificado"){
             Swal.fire({
@@ -30,12 +29,13 @@ registrarsusc.addEventListener("click", () => {
                 title: 'Actualizado',
                 showConfirmButton: false,
                 timer: 1500
-                
+               
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            mostrarsusc();
-            frm6.reset();
+            frm7.reset();
+            registrarage.value = "Registrar";
+            agenteid.value = "";
+            mostrarAgente();
+            
         }
         if (response == "error"){
             Swal.fire({
@@ -44,16 +44,16 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            frm6.reset();
+            registrarage.value = "Registrar";
+            agenteid.value = "";
+            frm7.reset();
         }
     })
 });
 
 
 
-function Eliminarsusc(nSuscripTipoId) {
+function Eliminarage(nAgenteId) {
     Swal.fire({
         title: 'Esta seguro de eliminar?',
         icon: 'warning',
@@ -64,12 +64,12 @@ function Eliminarsusc(nSuscripTipoId) {
         cancelButtonText: 'NO'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("./adminPhp/suscripcion/eliminar.php", {
+            fetch("./adminPhp/agente/eliminarAgente.php", {
                 method: "POST",
-                body: nSuscripTipoId
+                body: nAgenteId
             }).then(response => response.text()).then(response => {
                 if (response == "eliminado") {
-                    mostrarsusc();
+                    mostrarAgente();
                    Swal.fire({
                        icon: 'success',
                        title: 'Eliminado',
@@ -84,25 +84,27 @@ function Eliminarsusc(nSuscripTipoId) {
     })
 }
 
-function Editarsusc(nSuscripTipoId) {
-    fetch("./adminPhp/suscripcion/editar.php", {
+
+
+function Editarage(nAgenteId) {
+    fetch("./adminPhp/agente/editar.php", {
         method: "POST",
-        body: nSuscripTipoId
+        body: nAgenteId
     }).then(response => response.json()).then(response => {
-        suscripTipoId.value = response.nSuscripTipoId;
-        nombre.value = response.cNombre;
-        descripcion.value = response.cDescripcion;
-        precio.value = response.nPrecio;
-        meses.value = response.nMeses;
-        publicaciones.value = response.nPublicaciones;
-        registrarsusc.value = "Actualizar"
+        agenteid.value = response.nAgenteId;
+        agentenombre.value = response.cNombre;
+        correo.value = response.cCorreo;
+        telefono.value = response.cTelefono;
+        registrarage.value = "Actualizar"
+        mostrarAgente();
     })
 }
-buscarsusc.addEventListener("keyup", () => {
-    const valor = buscarsusc.value;
+buscarage.addEventListener("keyup", () => {
+    const valor = buscarage.value;
     if (valor == "") {
-        mostrarsusc();
+        mostrarAgente();
     }else{
-        mostrarsusc(valor);
+        mostrarAgente(valor);
     }
 });
+ 

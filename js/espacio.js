@@ -1,17 +1,18 @@
-mostrarsusc();
-function mostrarsusc(busqueda) {
-    fetch("./adminPhp/suscripcion/mostrar.php", {
+mostrarEspacio();
+function mostrarEspacio(busqueda) {
+    fetch("./adminPhp/espacio/mostrar.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        resultadosusc.innerHTML = response;
+        resultadoEspacio.innerHTML = response;
     })
-}
+} 
 
-registrarsusc.addEventListener("click", () => {
-    fetch("./adminPhp/suscripcion/registrar.php", {
+registrarEspacio.addEventListener("click", () => {
+   
+    fetch("./adminPhp/espacio/registrar.php", {
         method: "POST",
-        body: new FormData(frm6)
+        body: new FormData(frm2)
     }).then(response => response.text()).then(response => {
         
         if (response == "ok") {
@@ -21,8 +22,10 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            mostrarsusc();
-            frm6.reset();
+            mostrarEspacio();
+            frm2.reset();
+            
+           
         }
         if (response == "modificado"){
             Swal.fire({
@@ -32,10 +35,10 @@ registrarsusc.addEventListener("click", () => {
                 timer: 1500
                 
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            mostrarsusc();
-            frm6.reset();
+            registrarEspacio.value = "Registrar";
+            espacioTipoId.value = "";
+            mostrarEspacio();
+            frm2.reset();
         }
         if (response == "error"){
             Swal.fire({
@@ -44,16 +47,16 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            frm6.reset();
+            registrarEspacio.value = "Registrar";
+            espacioTipoId.value = "";
+            frm2.reset();
         }
     })
 });
 
 
 
-function Eliminarsusc(nSuscripTipoId) {
+function EliminarEspacio(nEspacioTipoId) {
     Swal.fire({
         title: 'Esta seguro de eliminar?',
         icon: 'warning',
@@ -64,12 +67,12 @@ function Eliminarsusc(nSuscripTipoId) {
         cancelButtonText: 'NO'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("./adminPhp/suscripcion/eliminar.php", {
+            fetch("./adminPhp/espacio/eliminar.php", {
                 method: "POST",
-                body: nSuscripTipoId
+                body: nEspacioTipoId
             }).then(response => response.text()).then(response => {
                 if (response == "eliminado") {
-                    mostrarsusc();
+                    mostrarEspacio();
                    Swal.fire({
                        icon: 'success',
                        title: 'Eliminado',
@@ -84,25 +87,24 @@ function Eliminarsusc(nSuscripTipoId) {
     })
 }
 
-function Editarsusc(nSuscripTipoId) {
-    fetch("./adminPhp/suscripcion/editar.php", {
+
+
+function EditarEspacio(nEspacioTipoId) {
+    fetch("./adminPhp/espacio/editar.php", {
         method: "POST",
-        body: nSuscripTipoId
+        body: nEspacioTipoId
     }).then(response => response.json()).then(response => {
-        suscripTipoId.value = response.nSuscripTipoId;
-        nombre.value = response.cNombre;
-        descripcion.value = response.cDescripcion;
-        precio.value = response.nPrecio;
-        meses.value = response.nMeses;
-        publicaciones.value = response.nPublicaciones;
-        registrarsusc.value = "Actualizar"
+        espacioTipoId.value = response.nEspacioTipoId;
+        descripcionesp.value = response.cDescripcion;
+        registrarEspacio.value = "Actualizar"
+        mostrarEspacio();
     })
 }
-buscarsusc.addEventListener("keyup", () => {
-    const valor = buscarsusc.value;
+buscarEspacio.addEventListener("keyup", () => {
+    const valor = buscarEspacio.value;
     if (valor == "") {
-        mostrarsusc();
+        mostrarEspacio();
     }else{
-        mostrarsusc(valor);
+        mostrarEspacio(valor);
     }
 });

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Realtica | Administrador </title>
+  <link rel="stylesheet" href="css/administrador.css">
+  <link rel="stylesheet" href="css/addUserAdmin.css">
+  <link rel="stylesheet" href="css/estiloTablas.css"><!--estilo de las tablas de contenido-->
+  
+  <!--estilo de las tablas para agregar -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <!--estilo bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="js/include-html.js"></script><!--para incluir partes de codigo html-->
+
+  <div data-include="menu.php"></div><!--barra de menu--><!-- Boxicons CDN Link -->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  
+
+
+
+</head>
+
+<body>
+  
+<section class="home-section">
+    <div>
+      
+    </div>
+    <br><br><br>
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-lg-6 ml-auto">
+          <form action="" method="post">
+            <div class="form-group">
+              <label for="buscra">Buscar</label>
+              <input type="text" name="buscar" id="buscarProp" placeholder="Buscar..." class="form-control">
+            </div>
+          </form>
+        </div>
+      </div>
+      <main>
+        <div class="container"><!--inicio Propiedades -->
+          <h1>Propiedades</h1>
+          <div id="resultadoPropiedad"class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              
+          </div>
+        </div><!--fin Propiedades  -->
+    </main>
+      
+</section>
+ 
+<div class="container mt-3"><!--inicio tabla para registrar propiedades-->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Agregar propiedad</button>
+  <div class="modal" id="myModal">
+      <div class="modal-dialog modal-lg">
+          <div class=" modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Completa los campos</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                    
+              </div>
+              <div class="col-12 col-lg-12 modal-body">
+                  <div class="card-body col-12 col-lg-12">
+                      <form action="" method="post" id="frmprop"enctype="multipart/form-data">
+                          <div class="form-group col-md-12">
+                            <label>Titulo de propiedad </label>
+                            <input type="hidden" name="propiedadId" id="propiedadId" value="">
+                            <input type="text" name="titulo" id="titulo" class="col-12 form-control"
+                                placeholder="Ingresa el nombre con el que quieres que aparezca tu propiedad"
+                                onkeypress="return SoloLetras(event);"onKeyUP="this.value=this.value.toUpperCase();">
+                        </div>
+                       
+                          <div class="form-group col-md-6">
+                            <label for="">Selecciona un agente</label>
+                            <select name="agente" id="agente" class="col-12 form-control"></select>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="">Estado</label>
+                            
+                            <select name="estados" id="estados" class="col-12 form-control"></select>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="">Municipio</label>
+                            <select name="municipios" id="municipios" class="col-12 form-control">
+                              <option value="">Selecione</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="">Localidad</label>
+                            <select name="localidades" id="localidades" class="col-12 form-control">
+                              <option value="">Selecione</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="">Colonia</label>
+                            <select name="colonias" id="colonias" class="col-12 form-control">
+                              <option value="">Selecione</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="">Tipo de vialidad</label>
+                            <select name="vialidadtipo" id="vialidadtipo" class="col-12 form-control">
+                              <option value="">Selecione</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="">Uso de suelo</label>
+                            <select name="usuSuelo" id="usuSuelo" class="col-12 form-control">
+                              <option value="">Selecione</option>
+                            </select>
+                          </div>
+                            <div class="form-group col-md-12">
+                                <label>Domicilio </label>
+                                <input type="text" name="domicilio" id="domicilio" class="col-12 form-control"
+                                    placeholder="Ingresa el domicilio">
+                            </div>
+                            <div class="form-group col-md-12">
+                              <label>Descripcion </label>
+                              <input type="text" name="descripcion" id="descripcion" class="col-12 form-control"
+                                  placeholder="Describe tu propiedad">
+                          </div>
+                            <div class="form-group col-md-4">
+                              <label>Numero exterior</label>
+                              <input type="text" name="numext" id="numext" class="col-12 form-control"
+                                placeholder="Registro Federal de Contribuyentes">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Numero interior</label>
+                              <input type="text" name="numint" id="numint" class="col-12 form-control"
+                                placeholder="Ingresa tu correo electrónico">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Numero de edificio</label>
+                              <input type="text" name="edificionum" id="edificionum" class="col-12 form-control"
+                                placeholder="Numero de edificio">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Estatus</label>
+                              <select name="estatus" id="estatus"class="col-12 form-control">
+                                <option value="Venta">Venta</option>
+                                <option value="Renta">Renta</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Tipo</label>
+                              <input type="text" name="tipo" id="tipo" class="form-control"
+                                placeholder="Tipo">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Construida desde</label>
+                              <input type="date" name="construccion" id="construccion" class="form-control"
+                                placeholder="Construida desde">
+                            </div>
+                            <div class="form-group check col-md-12">
+                              <label>La propiedad es irregular</label>
+                             <div class="col-12">
+                              <label for="">Si es irregular
+                                <input name="radio" value="1" type="radio" id="siIrregular"class="btn btn-primary btn-block" checked  onclick="irregular()">
+                              </label>
+                            <label>No es irregular
+                              <input type="radio" value="0" name="radio"id="noIrregular"class="btn btn-primary btn-block"onclick="noirregular()">                             
+                            </label> 
+                            </div>
+                             <label id="medidas">Ingresa sus medidas</label>
+                            </div>
+                            <script type="text/javascript">
+                                function irregular(){
+                                  document.getElementById('frente').disabled=true
+                                  document.getElementById('fondo').disabled=true
+                                  document.getElementById('terrenosuper').disabled=false
+                                  frente.value ="";
+                                  fondo.value="";
+                                  terrenosuper.value="";
+                                }
+                                function noirregular(){
+                                  document.getElementById('frente').disabled=false
+                                  document.getElementById('fondo').disabled=false
+                                  document.getElementById('terrenosuper').disabled=true
+                               
+                                  frente.value ="";
+                                  fondo.value="";
+                                  terrenosuper.value="";
+
+                                } 
+                            </script>
+                            <div class="form-group col-md-6">
+                              <label>Frente</label>
+                              <input type="text" name="frente" id="frente"step ="0.001" oninput="calcular()" class="col-12 form-control"
+                          placeholder="Medida del frente" disabled="true">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Fondo</label>
+                        <input type="text" name="fondo" id="fondo"step ="0.001" oninput="calcular()" class="col-12 form-control"
+                          placeholder="Medida del fondo"disabled="true">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Superficie del terreno</label>
+                        <input type="text" name="terrenosuper" id="terrenosuper"step ="0.001"class="col-12 form-control"
+                          placeholder="Superficie del terreno">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Superficie de construccion</label>
+                              <input type="text" name="constSuperf" id="constSuperf" class="col-12 form-control"
+                                placeholder="Superficie de construccion">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label>Numero de niveles</label>
+                              <input type="text" name="niveles" id="niveles" class="col-12 form-control"
+                                placeholder="Numero de niveles">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Pago</label>
+                                <input type="text" name="pago" id="pago" class="col-12 form-control"
+                                placeholder="Numero de niveles">
+                              </div>
+                            <div class="form-group col-md-6">
+                              <label>Tipos de pago aceptados</label>
+                              <select  name="financiamiento" value="" id="financiamiento"class="col-12 form-control">
+                                <option value="">Tipos de pago</option>
+                                
+                              </select>
+                            </div>
+  
+                            <div class="form-group col-md-12">
+                              <label>Numero de espacios</label>
+                              <div  name="espacios" value="" id="espacios"class="col-md-12 ">
+                              </div>
+                              
+                            </div>
+  
+                            <div class="form-group col-md-12">
+                              <label for="">Servicios con los que cuenta la propiedad</label>
+                              
+                              <div name="servicios" id="servicios" class="form-group col-md-12">
+                              </div>
+                              
+                            </div>
+                           
+                            <div class="form-group col-md-12">
+                              <label>Amenidades</label>
+                              <input type="text" name="amenidades" id="amenidades" class="col-12 form-control"
+                                placeholder="Amanidades que tiene esta propiedad">
+                            </div>
+                            <div class="form-group col-md-12">
+                              <label>Extra</label>
+                              <input type="text" name="extra" id="extra" class="col-12 form-control"
+                                placeholder="Ingresa informacion extra">
+                            </div>
+                            <div class="form-group col-md-12">
+                              <label>Selecciona una imagen </label>
+                              <label>Esta imagen sera la portada de tu publicacion </label>
+                              <input type="file" name="url_imagen" id="url_imagen" class="col-12 form-control"
+                                placeholder="">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Latitud</label>
+                              <input type="text" name="latitud" id="latitud" class="col-12 form-control"
+                                placeholder="Ingresa las coordenadas">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Longitud</label>
+                              <input type="text" name="longitud" id="longitud" class="col-12 form-control"
+                                placeholder="Ingresa las coordenadas">
+                            </div>
+                           
+                        </form>
+                  </div>
+              </div>
+              <div class="modal-footer"><!--inicio boton que abre la ventana de registro-->
+                  <input type="button" value="Registrar" id="registrar"
+                  class="btn btn-primary btn-block">
+              </div><!--fin boton que abre la ventana de registro-->
+          </div>
+      </div>
+  </div>
+</div><!--fin tabla para registrar usuarios-->
+<script type="text/javascript">
+  function calcular(){
+    try {
+      var a = parseFloat(document.getElementById("frente").value)|| 0,
+      b = parseFloat(document.getElementById("fondo").value|| 0);
+
+      document.getElementById("terrenosuper").value=a*b;
+    } catch (error) {
+      
+    }
+  }
+
+</script>
+<!--bootstrap js-->  
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="js/validarCampos.js"></script><!--para validar los campos-->
+<script src="js/llenarSelects2.js"></script><!--para validar los campos-->
+
+<script src="js/propiedades.js"></script>
+<script src="js/estados.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+crossorigin="anonymous"></script>
+
+<script src="js/admin.js"></script>
+
+
+
+</body>
+
+</html>
+
+

@@ -1,6 +1,6 @@
 mostrarPropiedad();
 function mostrarPropiedad(busqueda) {
-    fetch("./adminHtml/adminPhp/propiedadesUsu/verPropiedades.php", {
+    fetch("./adminPhp/propiedades/verPropiedades.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
@@ -8,19 +8,19 @@ function mostrarPropiedad(busqueda) {
     })
 } 
 registrar.addEventListener("click", () => {
-    fetch("./adminHtml/adminPhp/propiedadesUsu/agregar.php", {
+    fetch("./adminPhp/propiedades/agregar.php", {
         method: "POST",
-        body: new FormData(frmpropusuario)
+        body: new FormData(frmprop)
     }).then(response => response.text()).then(response => {
         if (response == "ok") {
             Swal.fire({
                 icon: 'success',
                 title: 'Propiedad registrada con exito',
-                showConfirmButton: false,
+                showConfirmButton: false, 
                 timer: 1500
             })
             mostrarPropiedad();
-            frmpropusuario.reset();
+            frmprop.reset();
      
         }
       
@@ -33,7 +33,7 @@ registrar.addEventListener("click", () => {
             })
             registrar.value = "Registrar";
             propiedadId.value = "";
-          
+            frmprop.reset();
             
         }
         if (response == "novalido"){
@@ -45,13 +45,44 @@ registrar.addEventListener("click", () => {
             })
             registrar.value = "Registrar";
             propiedadId.value = "";
-            
+            frmprop.reset();
             
         }
     })
 });
 
 
+
+function Eliminarprop(nPropiedadId) {
+    Swal.fire({
+        title: 'Esta seguro de eliminar?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si!',
+        cancelButtonText: 'NO'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch("./adminPhp/propiedades/eliminarProp.php", {
+                method: "POST",
+                body: nPropiedadId
+            }).then(response => response.text()).then(response => {
+                if (response == "eliminado") {
+                    mostrarPropiedad();
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Eliminado',
+                       showConfirmButton: false,
+                       timer: 1500
+                   })
+                }
+                
+            })
+            
+        }
+    })
+}
 
 function editarprop(nPropiedadId) {
     fetch("./adminPhp/propiedades/editarProp.php", {
@@ -61,7 +92,7 @@ function editarprop(nPropiedadId) {
         propiedadId.value = response.nPropiedadId;
         titulo.value = response.cTituloPropiedad;
         agente.value = response.cAgenteId;
-       
+
         estados.value = response.nEstadoId;
         municipios.value = response.nMunicipioId;
         localidades.value = response.nLocalidadId;
@@ -122,8 +153,6 @@ function editarprop(nPropiedadId) {
         document.getElementById('latitud').disabled=false
         document.getElementById('longitud').disabled=false
         document.getElementById('destacada').disabled=false
-
-        document.getElementById('url_imagen').disabled=false
 
     })
 }

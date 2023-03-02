@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+  <link rel="stylesheet" href="css/administrador.css"><!--estilo de la pagina-->
+  <link rel="stylesheet" href="css/estiloTablas.css"><!--estilo de las tablas de contenido-->
+
+  <!--estilo de las tablas para agregar -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <!--estilo bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="js/include-html.js"></script><!--para incluir partes de codigo html-->
+
+  <div data-include="menu.php"></div><!--barra de menu-->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'><!--iconos-->
+
+    
+  <title> Realtica | Administrador </title>
+
+</head>
+
+<body>
+  
+  <section class="home-section">
+    <div>
+      <h3 class="text-center">Roles de Usuario</h3>
+    </div>
+    <div class="container col-lg-12">
+      <div class="col-lg-5 row">
+        <div class="col-lg-12">
+          <div class="col-12 col-lg-12 row">
+            <div class="col-lg-12 ">
+              <form action="" method="post">
+                <div class="form-group">
+                  <input type="text" name="buscar" id="buscar" placeholder="Buscar  rol..."
+                    class="form-control">
+                </div>
+              </form>
+            </div>
+          </div>
+         <div class="table-wrapper">
+          <table class="table table-hover table-resposive">
+            <thead class="thead-dark">
+              <tr>
+                <th>nRolId</th>
+                <th>cRol</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="resultado">
+
+            </tbody>
+          </table>
+         </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
+      nuevo rol</button>
+  </div>
+  </section>
+  
+        
+  <div class="container mt-3">
+    <div class="modal" id="myModal">
+      <div class="modal-dialog ">
+        <div class=" modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Completa los campos</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="col-12 col-lg-12 modal-body">
+            <div class="card-body col-12 col-lg-12">
+              <div class="card-body">
+                <form action="" method="post" id="frmr">
+                  <div class="form-group">
+                    <label for="">Registrar nuevo </label>
+                    <input type="hidden" name="rolId" id="rolId" value="">
+                    <input type="text" name="rol" id="rol" placeholder="Nombre del rol" class="form-control">
+                  </div>
+                </form>
+              </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="button" value="Registrar" id="registrarrol" class="btn btn-primary btn-block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!---->
+  <section class="home-section">
+    <div>
+      <h3 class="text-center">Permisos</h3>
+    </div>
+    <div class="container col-lg-12">
+      <div class="col-lg-5 row">
+        <div class="col-lg-12">
+          <div class="col-12 col-lg-12 row">
+            <div class="col-lg-12 ">
+              <form action="" method="post">
+                <div class="form-group">
+                  <input type="text" name="buscar" id="busc" placeholder="Buscar  permiso"
+                    class="form-control">
+                </div>
+              </form>
+            </div>
+          </div>
+         <div class="table-wrapper">
+          <table class="table table-hover table-resposive">
+            <thead class="thead-dark">
+              <tr>
+                <th>nRolId</th>
+                <th>cRol</th>
+                <th>Fecha de registro</th>
+                <th>Acciones</th>
+                
+              </tr>
+            </thead>
+            <tbody id="resultado1">
+
+            </tbody>
+          </table>
+         </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal1">Agregar
+      nuevo permiso</button>
+  </div>
+  </section>
+  
+        
+  <div class="container mt-3">
+    <div class="modal" id="myModal1">
+      <div class="modal-dialog ">
+        <div class=" modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Completa los campos</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="col-12 col-lg-12 modal-body">
+            <div class="card-body col-12 col-lg-12">
+              <div class="card-body">
+                <form action="" method="post" id="frm1">
+                  <div class="form-group">
+                    <label for="">Registrar nuevo permiso</label>
+                    <input type="hidden" name="permisoTipoId" id="permisoTipoId" value="">
+                    <input type="text" name="permiso" id="permiso" placeholder="Nombre del permiso" class="form-control">
+                    <input type="text" name="descripcion" id="descripcion" placeholder="descripcion del permiso" class="form-control">
+                  </div>
+                </form>
+              </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="button" value="Registrar" id="registrarper" class="btn btn-primary btn-block">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</body>
+<!--bootstrap js-->   
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="js/rolAdmin.js"></script>
+<script src="js/permisosRol.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"crossorigin="anonymous"></script>
+
+</html>

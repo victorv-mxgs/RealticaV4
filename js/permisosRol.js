@@ -1,19 +1,19 @@
-mostrarsusc();
-function mostrarsusc(busqueda) {
-    fetch("./adminPhp/suscripcion/mostrar.php", {
+mostrarPermiso();
+function mostrarPermiso(busqueda) {
+    fetch("./adminPhp/permisosRolPhp/mostrarPermiso.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        resultadosusc.innerHTML = response;
+        resultado1.innerHTML = response;
     })
 }
 
-registrarsusc.addEventListener("click", () => {
-    fetch("./adminPhp/suscripcion/registrar.php", {
+registrarper.addEventListener("click", () => {
+    fetch("./adminPhp/permisosRolPhp/registrarPermiso.php", {
         method: "POST",
-        body: new FormData(frm6)
+        body: new FormData(frm1)
     }).then(response => response.text()).then(response => {
-        
+       
         if (response == "ok") {
             Swal.fire({
                 icon: 'success',
@@ -21,8 +21,8 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            mostrarsusc();
-            frm6.reset();
+            mostrarPermiso();
+            frm1.reset();
         }
         if (response == "modificado"){
             Swal.fire({
@@ -30,12 +30,11 @@ registrarsusc.addEventListener("click", () => {
                 title: 'Actualizado',
                 showConfirmButton: false,
                 timer: 1500
-                
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            mostrarsusc();
-            frm6.reset();
+            registrarper.value = "Registrar";
+            rolId.value = "";
+            mostrarPermiso();
+            frm1.reset();
         }
         if (response == "error"){
             Swal.fire({
@@ -44,16 +43,13 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            frm6.reset();
+            registrarper.value = "Registrar";
+            permisoTipoId.value = "";
+            frm1.reset();
         }
     })
 });
-
-
-
-function Eliminarsusc(nSuscripTipoId) {
+function Eliminarr(nPermisoTipoId) {
     Swal.fire({
         title: 'Esta seguro de eliminar?',
         icon: 'warning',
@@ -64,12 +60,12 @@ function Eliminarsusc(nSuscripTipoId) {
         cancelButtonText: 'NO'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("./adminPhp/suscripcion/eliminar.php", {
+            fetch("./adminPhp/permisosRolPhp/eliminarPermiso.php", {
                 method: "POST",
-                body: nSuscripTipoId
+                body: nPermisoTipoId
             }).then(response => response.text()).then(response => {
                 if (response == "eliminado") {
-                    mostrarsusc();
+                    mostrarPermiso();
                    Swal.fire({
                        icon: 'success',
                        title: 'Eliminado',
@@ -84,25 +80,25 @@ function Eliminarsusc(nSuscripTipoId) {
     })
 }
 
-function Editarsusc(nSuscripTipoId) {
-    fetch("./adminPhp/suscripcion/editar.php", {
+
+
+function Editarr(nPermisoTipoId) {
+    fetch("./adminPhp/permisosRolPhp/editarPermiso.php", {
         method: "POST",
-        body: nSuscripTipoId
+        body: nPermisoTipoId
     }).then(response => response.json()).then(response => {
-        suscripTipoId.value = response.nSuscripTipoId;
-        nombre.value = response.cNombre;
+        permisoTipoId.value = response.nPermisoTipoId;
+        permiso.value = response.cPermiso;
         descripcion.value = response.cDescripcion;
-        precio.value = response.nPrecio;
-        meses.value = response.nMeses;
-        publicaciones.value = response.nPublicaciones;
-        registrarsusc.value = "Actualizar"
+        baja.value = response.dBaja;
+        registrarper.value = "Actualizar"
     })
 }
-buscarsusc.addEventListener("keyup", () => {
-    const valor = buscarsusc.value;
+busc.addEventListener("keyup", () => {
+    const valor = buscar.value;
     if (valor == "") {
-        mostrarsusc();
+        mostrarPermiso();
     }else{
-        mostrarsusc(valor);
+        mostrarPermiso(valor);
     }
 });

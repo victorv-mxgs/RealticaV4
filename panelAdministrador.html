@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/administrador.css"><!--estilo de la pagina-->
+    <link rel="stylesheet" href="css/estiloTablas.css"><!--estilo de las tablas de contenido-->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'><!--iconos-->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title> Realtica | Administrador </title>
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
+    <script src="js/include-html.js"></script><!--para incluir partes de codigo html-->
+
+  <div data-include="menu.php"></div><!--barra de menu--><!-- Boxicons CDN Link -->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="js/llenarSelects.js"></script><!--para validar los campos-->
+
+
+    
+   <style>
+        th,td {
+            padding: 0.4rem !important;
+        }
+        body>div {
+            box-shadow: 10px 10px 8px #888888;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+    </style>
+    
+</head>
+
+<body>
+   
+
+<section class="home-section"><!--inicio seccion-->
+    <div>
+        <h3 class="text-center">Usuarios registrados</h3>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="col-12 col-lg-12 row">
+            <div class="col-12 col-lg-10 ">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <input type="text" name="buscar" id="buscar" placeholder="Buscar por nombre, apellido, id, rol..." class="form-control">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="container" style="margin-top: 10px;padding: 5px">
+            <table id="tablax" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido 1</th>
+                    <th>Apellido 2</th>
+                    <th>Telefono</th>
+                </thead>
+                <tbody id="resultado">
+                 
+                 
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section><!--fin seccion-->
+
+    <div class="container mt-3"><!--inicio tabla para registrar usuarios-->
+        <button type="button" class="btn btn-primary" onclick="agregar()" data-bs-toggle="modal" data-bs-target="#myModal">Agregar Usuario</button>
+        <script type="text/javascript">
+            function agregar(){
+
+                formUsu.reset();
+        registrarUsu.value = "Registrar"
+        document.getElementById("registrarUsu").style.display = "block";
+        document.getElementById('userid').disabled=false
+        document.getElementById('nombre').disabled=false
+        document.getElementById('usuario').disabled=false
+        document.getElementById('apellido').disabled=false
+        document.getElementById('telefono').disabled=false
+        document.getElementById('tipoTelefono').disabled=false
+        document.getElementById('domicilio').disabled=false
+        document.getElementById('email').disabled=false
+        document.getElementById('contrasena').disabled=false
+        document.getElementById('rfcUser').disabled=false
+        document.getElementById('tipoPersona').disabled=false
+        document.getElementById('rolid').disabled=false
+        document.getElementById('suscripcion').disabled=false
+          
+
+            } 
+        </script>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class=" modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Completa los campos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                    
+                    </div>
+                    <div class="col-12 col-lg-12 modal-body">
+                        <div class="card-body col-12 col-lg-12">
+                            <form action="" method="post" id="formUsu">
+                                <div class="form-group col-12 col-lg-6">
+                                    <label for="">Nombre</label>
+                                    <input type="hidden" name="userid" id="userid" value="">
+                                    <input type="text" name="nombre" id="nombre" placeholder="Nombre"
+                                        onkeypress="return SoloLetras(event);"
+                                        onKeyUP="this.value=this.value.toUpperCase();" required class="form-control">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label for="">Apellido</label>
+                                    <input type="text" name="apellido" id="apellido" placeholder="Apellidos"
+                                        onkeypress="return SoloLetras(event);"
+                                        onKeyUP="this.value=this.value.toUpperCase();" required class="form-control">
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label for="">Usuario</label>
+                                    <input type="text" name="usuario" id="usuario" placeholder="Nombre de usuario"
+                                        required class="form-control">
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label for="">Telefono</label>
+                                    <input type="text" name="telefono" id="telefono" placeholder="Numero de telefono"
+                                        onkeypress="return SoloNumeros(event);" pattern=".{10,15}" required
+                                        class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="">Tipo de telefono</label>
+                                            <select name="tipoTelefono" id="tipoTelefono" class="col-12 form-control">
+                                                <option value="movil">movil</option>
+                                                <option value="fijo">fijo</option>
+                                            </select>
+                                    
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="">Domicilio</label>
+                                    <input type="text" name="domicilio" id="domicilio" class="form-control"
+                                        placeholder="Ingresa el domicilio">
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label class="">Tipo de persona</label>
+                                    <select class="form-select col-12 form-control" name="tipoPersona" value="" id="tipoPersona"
+                                    aria-label="Default select example">
+                                    <option selected>Selecciona</option>
+                                    <option value="fisica">fisica</option>
+                                    <option value="moral">moral</option>
+                                </select>
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <label class="">RFC</label>
+                                    <input type="text" name="rfcUser" id="rfcUser" class="form-control"
+                                        onkeypress="return rfc(event);" onKeyUP="this.value=this.value.toUpperCase();"
+                                        pattern=".{13,15}" required placeholder="Registro Federal de Contribuyentes">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="">Correo electrónico</label>
+                                    <input type="email" name="email" id="email" class="form-control"
+                                        placeholder="Ingresa tu correo electrónico">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="">Contraseña</label>
+                                    <input type="password" name="contrasena" id="contrasena" class="form-control"
+                                        placeholder="Ingresa una contraseña">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="">Repite la Contraseña </label>
+                                    <input type="password" name="contrasena2" id="contrasena2" class="form-control"
+                                        placeholder="Vuelve a escribir la contraseña">
+                                </div>
+                              
+                                <div class="form-group col-md-6">
+                                    <label class="">Suscripcion</label>
+                                    <select class="form-select col-12 form-control" name="suscripcion" value="" id="suscripcion"
+                                        aria-label="Default select example">
+                                        <option selected>Selecciona</option>
+                                    </select>
+                                </div>
+                                <div class="form-group check col-md-6">
+                                    <label class="">Selecciona un rol</label>
+                                    <select class="form-select col-12 form-control" name="rolid" value="" id="rolid"
+                                        aria-label="Default select example">
+                                        <option selected>Selecciona un Rol</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer"><!--inicio boton que abre la ventana de registro-->
+                        <input type="button" value="Registrar" id="registrarUsu"class="btn btn-primary btn-block">
+                    </div><!--fin boton que abre la ventana de registro-->
+                </div>
+            </div>
+        </div>
+    </div><!--fin tabla para registrar usuarios-->
+   
+</body>
+ 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="js/validarCampos.js"></script><!--para validar los campos-->
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="crossorigin="anonymous"></script>
+
+<script src="js/menuAdmin.js"></script><!--para el menu lateral-->
+<script src="js/admin.js"></script><!--para  registrar, ver, editar y eliminar usuarios  -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script><!--para mostrar la ventana de registro-->
+
+</html>

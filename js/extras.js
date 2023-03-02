@@ -1,17 +1,17 @@
-mostrarsusc();
-function mostrarsusc(busqueda) {
-    fetch("./adminPhp/suscripcion/mostrar.php", {
+mostrarSuelo();
+function mostrarSuelo(busqueda) {
+    fetch("./adminPhp/usoSuelo/mostrar.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        resultadosusc.innerHTML = response;
+        resultado.innerHTML = response;
     })
 }
 
-registrarsusc.addEventListener("click", () => {
-    fetch("./adminPhp/suscripcion/registrar.php", {
+registrar.addEventListener("click", () => {
+    fetch("./adminPhp/usoSuelo/registrar.php", {
         method: "POST",
-        body: new FormData(frm6)
+        body: new FormData(frm)
     }).then(response => response.text()).then(response => {
         
         if (response == "ok") {
@@ -21,8 +21,10 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            mostrarsusc();
-            frm6.reset();
+            mostrarSuelo();
+            frm.reset();
+            
+           
         }
         if (response == "modificado"){
             Swal.fire({
@@ -32,10 +34,10 @@ registrarsusc.addEventListener("click", () => {
                 timer: 1500
                 
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            mostrarsusc();
-            frm6.reset();
+            registrar.value = "Registrar";
+            UsoSueloId.value = "";
+            mostrarSuelo();
+            frm.reset();
         }
         if (response == "error"){
             Swal.fire({
@@ -44,16 +46,16 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            frm6.reset();
+            registrar.value = "Registrar";
+            UsoSueloId.value = "";
+            frm.reset();
         }
     })
 });
 
 
-
-function Eliminarsusc(nSuscripTipoId) {
+ 
+function Eliminar(nUsoSueloId) {
     Swal.fire({
         title: 'Esta seguro de eliminar?',
         icon: 'warning',
@@ -64,12 +66,12 @@ function Eliminarsusc(nSuscripTipoId) {
         cancelButtonText: 'NO'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("./adminPhp/suscripcion/eliminar.php", {
+            fetch("./adminPhp/usoSuelo/eliminar.php", {
                 method: "POST",
-                body: nSuscripTipoId
+                body: nUsoSueloId
             }).then(response => response.text()).then(response => {
                 if (response == "eliminado") {
-                    mostrarsusc();
+                    mostrarSuelo();
                    Swal.fire({
                        icon: 'success',
                        title: 'Eliminado',
@@ -84,25 +86,27 @@ function Eliminarsusc(nSuscripTipoId) {
     })
 }
 
-function Editarsusc(nSuscripTipoId) {
-    fetch("./adminPhp/suscripcion/editar.php", {
+
+
+function Editar(nUsoSueloId) {
+    fetch("./adminPhp/usoSuelo/editar.php", {
         method: "POST",
-        body: nSuscripTipoId
+        body: nUsoSueloId
     }).then(response => response.json()).then(response => {
-        suscripTipoId.value = response.nSuscripTipoId;
-        nombre.value = response.cNombre;
-        descripcion.value = response.cDescripcion;
-        precio.value = response.nPrecio;
-        meses.value = response.nMeses;
-        publicaciones.value = response.nPublicaciones;
-        registrarsusc.value = "Actualizar"
+        UsoSueloId.value = response.nUsoSueloId;
+        suelo.value = response.cUsoSuelo;
+        registrar.value = "Actualizar"
     })
 }
-buscarsusc.addEventListener("keyup", () => {
-    const valor = buscarsusc.value;
+buscar.addEventListener("keyup", () => {
+    const valor = buscar.value;
     if (valor == "") {
-        mostrarsusc();
+        mostrarSuelo();
     }else{
-        mostrarsusc(valor);
+        mostrarSuelo(valor);
     }
 });
+
+
+
+

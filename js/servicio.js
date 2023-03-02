@@ -1,17 +1,17 @@
-mostrarsusc();
-function mostrarsusc(busqueda) {
-    fetch("./adminPhp/suscripcion/mostrar.php", {
+mostrarservicio();
+function mostrarservicio(busqueda) {
+    fetch("./adminPhp/servicio/mostrar.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        resultadosusc.innerHTML = response;
+        resultadoservicio.innerHTML = response;
     })
 }
 
-registrarsusc.addEventListener("click", () => {
-    fetch("./adminPhp/suscripcion/registrar.php", {
+rgs.addEventListener("click", () => {
+    fetch("./adminPhp/servicio/registrarServ.php", {
         method: "POST",
-        body: new FormData(frm6)
+        body: new FormData(frm4)
     }).then(response => response.text()).then(response => {
         
         if (response == "ok") {
@@ -21,8 +21,10 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            mostrarsusc();
-            frm6.reset();
+            mostrarservicio();
+            frm4.reset();
+            
+           
         }
         if (response == "modificado"){
             Swal.fire({
@@ -32,10 +34,10 @@ registrarsusc.addEventListener("click", () => {
                 timer: 1500
                 
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            mostrarsusc();
-            frm6.reset();
+            rgs.value = "Registrar";
+            servicioTipoId.value = "";
+            mostrarservicio();
+            frm4.reset();
         }
         if (response == "error"){
             Swal.fire({
@@ -44,16 +46,18 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            frm6.reset();
+            rgs.value = "Registrar";
+            servicioTipoId.value = "";
+            frm4.reset();
         }
     })
 });
 
 
 
-function Eliminarsusc(nSuscripTipoId) {
+
+
+function Eliminarservicio(nServicioTipoId) {
     Swal.fire({
         title: 'Esta seguro de eliminar?',
         icon: 'warning',
@@ -64,12 +68,12 @@ function Eliminarsusc(nSuscripTipoId) {
         cancelButtonText: 'NO'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("./adminPhp/suscripcion/eliminar.php", {
+            fetch("./adminPhp/servicio/eliminar.php", {
                 method: "POST",
-                body: nSuscripTipoId
+                body: nServicioTipoId
             }).then(response => response.text()).then(response => {
                 if (response == "eliminado") {
-                    mostrarsusc();
+                    mostrarservicio();
                    Swal.fire({
                        icon: 'success',
                        title: 'Eliminado',
@@ -84,25 +88,21 @@ function Eliminarsusc(nSuscripTipoId) {
     })
 }
 
-function Editarsusc(nSuscripTipoId) {
-    fetch("./adminPhp/suscripcion/editar.php", {
+function Editarservicio(nServicioTipoId) {
+    fetch("./adminPhp/servicio/editar.php", {
         method: "POST",
-        body: nSuscripTipoId
+        body: nServicioTipoId
     }).then(response => response.json()).then(response => {
-        suscripTipoId.value = response.nSuscripTipoId;
-        nombre.value = response.cNombre;
-        descripcion.value = response.cDescripcion;
-        precio.value = response.nPrecio;
-        meses.value = response.nMeses;
-        publicaciones.value = response.nPublicaciones;
-        registrarsusc.value = "Actualizar"
+        servicioTipoId.value = response.nServicioTipoId;
+        serv.value = response.cServicio;
+        rgs.value = "Actualizar"
     })
 }
-buscarsusc.addEventListener("keyup", () => {
-    const valor = buscarsusc.value;
+buscarservicio.addEventListener("keyup", () => {
+    const valor = buscarservicio.value;
     if (valor == "") {
-        mostrarsusc();
+        mostrarservicio();
     }else{
-        mostrarsusc(valor);
+        mostrarservicio(valor);
     }
 });

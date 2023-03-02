@@ -1,17 +1,18 @@
-mostrarsusc();
-function mostrarsusc(busqueda) {
-    fetch("./adminPhp/suscripcion/mostrar.php", {
+mostrarFinan();
+function mostrarFinan(busqueda) {
+    fetch("./adminPhp/financiamiento/mostrar.php", {
         method: "POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        resultadosusc.innerHTML = response;
+        resultadfoinan.innerHTML = response;
     })
 }
 
-registrarsusc.addEventListener("click", () => {
-    fetch("./adminPhp/suscripcion/registrar.php", {
+registrarfinan.addEventListener("click", () => {
+   
+    fetch("./adminPhp/financiamiento/registrar.php", {
         method: "POST",
-        body: new FormData(frm6)
+        body: new FormData(frm3)
     }).then(response => response.text()).then(response => {
         
         if (response == "ok") {
@@ -21,8 +22,10 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            mostrarsusc();
-            frm6.reset();
+            mostrarFinan();
+            frm3.reset();
+            
+           
         }
         if (response == "modificado"){
             Swal.fire({
@@ -32,10 +35,10 @@ registrarsusc.addEventListener("click", () => {
                 timer: 1500
                 
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            mostrarsusc();
-            frm6.reset();
+            registrarfinan.value = "Registrar";
+            financiamientoTipoId.value = "";
+            mostrarFinan();
+            frm3.reset();
         }
         if (response == "error"){
             Swal.fire({
@@ -44,16 +47,14 @@ registrarsusc.addEventListener("click", () => {
                 showConfirmButton: false,
                 timer: 1500
             })
-            registrarsusc.value = "Registrar";
-            suscripTipoId.value = "";
-            frm6.reset();
+            registrarfinan.value = "Registrar";
+            financiamientoTipoId.value = "";
+            frm3.reset();
         }
     })
 });
 
-
-
-function Eliminarsusc(nSuscripTipoId) {
+function Eliminarfinan(nFinanciamientoTipoId) {
     Swal.fire({
         title: 'Esta seguro de eliminar?',
         icon: 'warning',
@@ -64,12 +65,12 @@ function Eliminarsusc(nSuscripTipoId) {
         cancelButtonText: 'NO'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("./adminPhp/suscripcion/eliminar.php", {
+            fetch("./adminPhp/financiamiento/eliminarFinan.php", {
                 method: "POST",
-                body: nSuscripTipoId
+                body: nFinanciamientoTipoId
             }).then(response => response.text()).then(response => {
-                if (response == "eliminado") {
-                    mostrarsusc();
+                if (response == "el") {
+                    mostrarFinan();
                    Swal.fire({
                        icon: 'success',
                        title: 'Eliminado',
@@ -84,25 +85,22 @@ function Eliminarsusc(nSuscripTipoId) {
     })
 }
 
-function Editarsusc(nSuscripTipoId) {
-    fetch("./adminPhp/suscripcion/editar.php", {
+
+function Editarfinan(nFinanciamientoTipoId) {
+    fetch("./adminPhp/financiamiento/editar.php", {
         method: "POST",
-        body: nSuscripTipoId
+        body: nFinanciamientoTipoId
     }).then(response => response.json()).then(response => {
-        suscripTipoId.value = response.nSuscripTipoId;
-        nombre.value = response.cNombre;
-        descripcion.value = response.cDescripcion;
-        precio.value = response.nPrecio;
-        meses.value = response.nMeses;
-        publicaciones.value = response.nPublicaciones;
-        registrarsusc.value = "Actualizar"
+        financiamientoTipoId.value = response.nFinanciamientoTipoId;
+        financiamiento.value = response.cFinanciamiento;
+        registrarfinan.value = "Actualizar"
     })
 }
-buscarsusc.addEventListener("keyup", () => {
-    const valor = buscarsusc.value;
+buscarfinan.addEventListener("keyup", () => {
+    const valor = buscarfinan.value;
     if (valor == "") {
-        mostrarsusc();
+        mostrarFinan();
     }else{
-        mostrarsusc(valor);
+        mostrarFinan(valor);
     }
 });
