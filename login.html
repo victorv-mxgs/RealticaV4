@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--estilo bootstrap-->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	 
+
+        <link rel="stylesheet" href="css/login.css"><!--estilo de la pagina-->   
+        <link rel="stylesheet" href="css/menuHorizontal.css"><!--menu horinzontal-->
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> <!-- iconos  -->
+
+    <script src="js/include-html.js"></script><!--para incluir partes de codigo html-->
+
+        <title>Realtica | Login</title>          
+    </head>
+    <div data-include="php/menus/menu.php"></div><!--barra de menu-->
+    <div data-include="partesHtml/btnRedesSociales.html"></div><!--boton de whatsapp y redes sociales-->
+    <br><br><br>
+<body>
+    <div class="bg-info d-flex justify-content-center align-items-center vh-100">
+      <!--<form action="php/validar.php" -->
+      <form action="php/validar.php" id="formlogin"class=" needs-validation"method="post">
+        <div class="bg-white p-5 rounded-5 text-secondary shadow"style="width: 25rem" >
+          <div class="d-flex justify-content-center">
+            <img src="img/icons/login-icon.svg" alt="login-icon" style="height: 7rem"/>
+          </div>
+ 
+          <div class="text-center fs-1 fw-bold">Login</div>
+          <div class="input-group mt-4">
+            <div class="input-group-text bg-info">
+              <img src="img/icons/username-icon.svg" alt="username-icon" style="height: 1rem"/>
+            </div>
+            <input class="form-control bg-light" name="usuario" type="text"placeholder="Ingresa tu nombre de usuario " required/>
+          </div>
+
+          <div class="input-group mt-1">
+            <div class="input-group-text bg-info">
+              <img src="img/icons/password-icon.svg"alt="password-icon"style="height: 1rem"/>
+            </div>
+            <input class="form-control bg-light" type="password" name="contraseña" placeholder="Ingresa tu Contraseña "required/>
+          </div>
+
+         
+
+          <div >
+     
+            <button type="submit" id="login"class="btn btn-info text-white w-100 mt-4 fw-semibold shadow-sm">Login</button>
+          </div>
+
+          <div class="d-flex gap-1 justify-content-center mt-1">
+            <div>¿No tienes una cuenta?</div>
+            <a href="registro.html" class="text-decoration-none text-info fw-semibold">Registrate</a>
+          </div>
+
+
+        </div>
+       </form>
+    </div>
+    
+</body>
+        
+<!--Iconos redes sociales-->
+<script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script><footer class="pie-pagina">
+    <footer>
+        <div data-include="partesHtml/footer.html"></div><!--pie de pagina-->
+    </footer>
+<!--menu horizontal-->   
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+<!--para iniciar sesion-->
+<script src="js/login.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</html>

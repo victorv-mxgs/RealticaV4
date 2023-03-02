@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/index.css"><!--estilo de la pagina-->
+  
+     <!--estilo bootstrap-->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <script src="js/include-html.js"></script><!--para incluir partes de codigo html-->
+<!--estilo del mapa-->
+    <style>
+      body {
+          padding-top: 50px;
+          padding-bottom: 20px;
+      }
+  </style>
+    <style>
+      .map-container-2 {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+      }
+  
+      .map-container-2 iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+    </style><!--fin estilo del mapa-->
+ 
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script><!--mapa-->
+
+    <title>Realtica | Inicio</title>
+</head>
+
+    <div data-include="php/menus/menu.php"></div><!--barra de menu-->
+    <div data-include="partesHtml/btnRedesSociales.html"></div><!--boton de whatsapp y redes sociales-->
+
+<body>
+    <div class="banner"><!--inicio banner-->
+		<div class="capa"></div>
+		<div class="info">
+			<h1>ENCUENTRA TU NUEVA PROPIEDAD</h1>
+			
+		</div>
+	</div><!--fin banner-->
+
+    <div class="title-cards"><!--inicio aniversario  -->
+        <h2></h2>
+      </div>
+      <div class="container-card-aniversario">
+      
+      <div class="card-aniversario">
+        <figure>
+            <img src="img/Realtica_2_aniversario.jpg">
+       </figure>
+      </div>
+      
+      </div><!--fin aniversario  -->
+   
+      
+  <main>
+      <div class="container"><!--inicio Propiedades agregadas reciente  -->
+        <h1>Últimas Propiedades añadidas</h1>
+        <div id="resultado1"class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            
+        </div>
+      </div><!--fin Propiedades agregadas reciente  -->
+
+      <div class="container"><!--inicio Propiedades destacadas -->
+        <h1>Propiedades destacadas</h1>
+        <div id="resultado2"class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            
+        </div>
+      </div><!--fin Propiedades destacadas  -->
+
+      <div class="container"><!--inicio Propiedades más visitadas  -->
+        <h1>Propiedades mas visitadas</h1>
+        <div id="resultado3"class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            
+        </div>
+      </div><!--fin Propiedades más visitadas  -->
+     
+  </main>
+  <!--inicio para mostrar mapa-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="map-container-google-2" class="z-depth-1-half map-container" style="height: 600px; width:100%;">
+        </div>
+      </div>
+     </div>
+   
+    </div>
+    <hr>
+  </div> 
+      
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+      <script src="js/vendor/bootstrap.min.js"></script>
+
+     
+          <script>
+        var customLabel = {
+            restaurant: {
+                label: 'R'
+            },
+            bar: {
+                label: 'B'
+            }
+        };
+    
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map-container-google-2'), {
+                center: new google.maps.LatLng(21.504345,-104.89467),
+                zoom: 13,
+            heading: 90,
+            tilt: 45
+            });
+    
+     
+            var infoWindow = new google.maps.InfoWindow;
+            downloadUrl('http://localhost/realticav3/php/xml.php', function(data) {
+                var xml = data.responseXML;
+                var markers = xml.documentElement.getElementsByTagName('marker');
+                Array.prototype.forEach.call(markers, function(markerElem) {
+                    var idmapa = markerElem.getAttribute('idmapa');
+            var persona = markerElem.getAttribute('persona');
+                    var descripcion = markerElem.getAttribute('descripcion');
+                   
+                    var point = new google.maps.LatLng(
+                        parseFloat(markerElem.getAttribute('lat')),
+                        parseFloat(markerElem.getAttribute('lng')));
+                    const contentString =
+                        '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        "</div>" +
+                        '<center>'+
+                        '<h1 id="firstHeading" class="firstHeading">'+ persona +  '</h1>' +
+                        '</center>'+
+                        '<br>'+
+                        '<div id="bodyContent">' +
+                        '<br>'+
+                        "<p><b>" + descripcion + "</p>" +
+                        "</p>" +
+                        "</div>" +
+                        "</div>";
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: point,
+                        
+                    });
+                    marker.addListener('click', function() {
+                        infoWindow.setContent(contentString);
+                        infoWindow.open(map, marker);
+                    });
+                });
+            });           
+    }
+    
+        function downloadUrl(url, callback) {
+            var request = window.ActiveXObject ?
+                new ActiveXObject('Microsoft.XMLHTTP') :
+                new XMLHttpRequest;
+            request.onreadystatechange = function() {
+                if (request.readyState == 4) {
+                    request.onreadystatechange = doNothing;
+                    callback(request, request.status);
+                }
+            };
+            request.open('GET', url, true);
+            request.send(null);
+        }
+    
+        function doNothing() {}
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAet6BC3A-TE6toXKEFBxLcFYscszuNKFw&callback=initMap"
+            defer>
+        </script><!--fin para mostrar mapa-->
+</body>
+
+<!--Iconos redes sociales-->
+<script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script><footer class="pie-pagina">
+
+<footer>
+    <div data-include="partesHtml/footer.html"></div><!--pie de pagina-->
+    
+</footer>
+<!--menu horizontal-->   
+<script src="js/mostrarPropiedades.js"></script>
+<!--bootstrap js-->   
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</html>
