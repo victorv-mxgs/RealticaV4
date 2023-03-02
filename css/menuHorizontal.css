@@ -1,0 +1,92 @@
+body{
+  margin: 0;
+}
+.container{
+  width:100%;
+  max-width: 1200px;
+  margin: auto;
+ 
+} 
+.header{
+  background:#333;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+}
+.header a{
+  color: white;
+  text-decoration: none;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  align-items: center;
+}
+.logo-nav-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.logo{
+  letter-spacing: 5px;
+  font-size: 1.2em;
+}
+.menu-icon{
+  display: none;
+ 
+}
+.navigation ul{
+padding: 0;
+margin: 0;
+list-style: none;
+}
+
+.navigation ul li{
+ display: inline-block;
+}
+.navigation ul li a{
+  display: block;
+  padding:   0.5rem 1rem;
+  transition: all 0.5s;
+  border-radius: 5px;
+ }
+
+ .navigation ul li a:hover{
+background: #4a4a4a;
+ }
+
+ @media only screen and (min-width:200px) and (max-width:768px){
+  .menu-icon{
+    display: block;
+    cursor: pointer;
+    padding:   0.5rem 1rem;
+    color: white;
+  }
+  .navigation ul{
+    display: none;  
+  }
+  .navigation ul.show{
+    display: block;  
+  }
+  .navigation {
+    width: 100%;
+    margin-top: 1rem;
+     }
+     .navigation ul li{
+       display: block;
+      }
+     .navigation ul li a{
+       display: block;
+       padding:   0.5rem;
+       transition: all 0.5s;
+       border-radius: 5px;
+      }
+     
+      .navigation ul li a:hover{
+     background: #4a4a4a;
+      }
+}
+  
+  

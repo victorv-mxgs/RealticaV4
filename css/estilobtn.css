@@ -1,0 +1,60 @@
+.boton{
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    background: #141414;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: .3s ease all;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration-style: none;
+    text-decoration-line: none;
+    font-size: 20px;
+    font-weight: 700!important;
+
+}
+.boton span{
+    position: relative; 
+    z-index: 2;
+    transition: .3s ease all;
+}
+.boton.login::after{
+    content: "";
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: calc(-100% - 80px);
+	border-bottom: 80px solid #0000ff;
+	border-right: 80px solid transparent;
+	transition: .4s ease-in-out all;
+}
+.boton.login:hover::after{
+    left:0;
+}
+/*btn registrarme*/
+.boton.Registrarme::after{
+    content: "";
+	width: 1px;
+	height: 1px;
+	background: none;
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 50%;
+	transition: .3s ease-in-out all;
+	border-radius: 100px;
+	transform-origin: center;
+}
+.boton.Registrarme:hover::after{
+    transform: scale(400);
+	background: #0000ff;
+    
+}
